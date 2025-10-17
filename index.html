@@ -171,7 +171,7 @@
                 <!-- ESTATÍSTICAS DE COMBATE --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 grid grid-cols-3 gap-4 text-center">
                     <div>
                         <span class="font-title text-yellow-400 text-xl block">CA</span>
-                        <input type="number" id="ac-total" class="attr-input w-24 h-16 text-4xl" value="23">
+                        <input type="number" id="ac-total" class="attr-input w-24 h-16 text-4xl" value="24">
                     </div>
                     <div>
                         <span class="font-title text-yellow-400 text-xl block">PV</span>
@@ -215,7 +215,7 @@ Bolsa com moedas</textarea>
                      <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Características</h2>
                     <textarea id="features" rows="10" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200">Sentido Divino: Usa uma ação para sentir celestiais, demônios ou mortos-vivos.
 Cura Pelas Mãos: Pode curar um total de 25 PV por dia.
-Estilo de Luta (Defesa): +1 de CA enquanto estiver usando armadura.
+Estilo de Luta: DEFESA - Enquanto estiver usando armadura, você ganha +1 de bônus em sua CA.
 Destruição Divina: Gasta um espaço de magia para causar dano radiante extra.
 Saúde Divina: Imune a doenças.
 Ataque Extra: Pode atacar duas vezes por ação.
@@ -224,7 +224,11 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
 
                 <!-- TALENTOS --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
                     <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Talentos</h2>
-                    <textarea id="feats" rows="5" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200"></textarea>
+                    <textarea id="feats" rows="8" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200">Sentinela
+Você domina técnicas para obter vantagem a cada vez que qualquer inimigo baixar a guarda, ganhando os seguintes benefícios:
+- Quando você atinge uma criatura com um ataque de oportunidade, o deslocamento da criatura se torna 0 pelo resto do turno.
+- As criaturas provocam ataques de oportunidade de você mesmo se realizarem a ação de Desengajar antes de saírem do seu alcance.
+- Quando uma criatura a até 1,5 metro de você realizar um ataque contra um alvo diferente de você (e o alvo não possuir esse talento), você pode usar sua reação para realizar um ataque corpo-a-corpo com arma contra a criatura atacante.</textarea>
                 </div>
             </div>
 
@@ -252,7 +256,7 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
                          <div id="spell-slots-2" class="flex gap-2"></div>
                     </div>
                      <div class="mt-6 space-y-4">
-                        <div>
+                         <div>
                             <h3 class="font-semibold text-yellow-300 mb-2">Magias de Juramento</h3>
                             <details>
                                 <summary>Comando</summary>
@@ -287,7 +291,7 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
                             </details>
                             <details>
                                 <summary>Escudo da Fé</summary>
-                                <p class="spell-description">Uma magia de bônus que concede +2 na CA a uma criatura por até 10 minutos, com concentração.</p>
+                                <p class="spell-description">Uma magia de bônus que concede +3 na CA a uma criatura por até 10 minutos, com concentração.</p>
                             </details>
                         </div>
                         <div>
@@ -352,7 +356,7 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
         
         const initialProfs = {
             saves: ['wis', 'cha'],
-            skills: ['Atletismo', 'Persuasão']
+            skills: ['Atletismo', 'Persuasão', 'História', 'Religião', 'Sobrevivência']
         };
 
         function getModifier(score) {
