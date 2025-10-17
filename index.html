@@ -20,7 +20,6 @@
             background-color: #4a5568;
         }
         .attr-input {
-            width: 5rem;
             background-color: #2d3748;
             border: 1px solid #4a5568;
             text-align: center;
@@ -28,6 +27,13 @@
             font-weight: bold;
             border-radius: 0.5rem;
             -moz-appearance: textfield;
+            color: #f6e05e; /* Valor principal em amarelo */
+        }
+        .attr-input-compact {
+            width: 4rem; /* Largura menor para inputs em linha */
+            padding: 0.25rem 0.5rem;
+            font-size: 1.25rem;
+            line-height: 1.75rem;
         }
         .attr-input::-webkit-outer-spin-button,
         .attr-input::-webkit-inner-spin-button {
@@ -96,8 +102,7 @@
 <body class="bg-gray-900 text-gray-200 p-4 sm:p-6 md:p-8">
 
     <div class="max-w-7xl mx-auto">
-        <!-- CABEÇALHO -->
-        <header class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 mb-8">
+        <!-- CABEÇALHO --><header class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 mb-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div>
                     <h1 id="character-name" contenteditable="true" class="font-title text-4xl text-yellow-400 rounded px-2">Nome do Personagem</h1>
@@ -114,50 +119,46 @@
             </div>
         </header>
 
-        <!-- GRID PRINCIPAL -->
-        <main class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- GRID PRINCIPAL --><main class="grid grid-cols-1 md:grid-cols-3 gap-8">
             
-            <!-- COLUNA ESQUERDA: ATRIBUTOS E PERÍCIAS -->
-            <div class="space-y-8">
-                <!-- ATRIBUTOS -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+            <!-- COLUNA ESQUERDA: ATRIBUTOS E PERÍCIAS --><div class="space-y-8">
+                <!-- ATRIBUTOS --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
                     <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Atributos</h2>
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                        <!-- Força --><div class="text-center bg-gray-700 p-3 rounded-lg flex flex-col items-center">
                             <span class="text-sm text-gray-400">Força</span>
-                            <input type="number" id="attr-str" class="attr-input" value="19">
-                            <span id="mod-str" class="font-semibold text-yellow-400 text-lg">+4</span>
+                            <input type="number" id="attr-str" class="attr-input w-24 h-16 text-4xl" value="19">
+                            <span id="mod-str" class="font-semibold text-yellow-400 text-lg mt-1">+4</span>
                         </div>
-                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                        <!-- Destreza --><div class="text-center bg-gray-700 p-3 rounded-lg flex flex-col items-center">
                             <span class="text-sm text-gray-400">Destreza</span>
-                            <input type="number" id="attr-dex" class="attr-input" value="12">
-                            <span id="mod-dex" class="font-semibold text-yellow-400 text-lg">+1</span>
+                            <input type="number" id="attr-dex" class="attr-input w-24 h-16 text-4xl" value="12">
+                            <span id="mod-dex" class="font-semibold text-yellow-400 text-lg mt-1">+1</span>
                         </div>
-                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                        <!-- Constituição --><div class="text-center bg-gray-700 p-3 rounded-lg flex flex-col items-center">
                             <span class="text-sm text-gray-400">Constituição</span>
-                             <input type="number" id="attr-con" class="attr-input" value="20">
-                            <span id="mod-con" class="font-semibold text-yellow-400 text-lg">+5</span>
+                             <input type="number" id="attr-con" class="attr-input w-24 h-16 text-4xl" value="20">
+                            <span id="mod-con" class="font-semibold text-yellow-400 text-lg mt-1">+5</span>
                         </div>
-                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                        <!-- Inteligência --><div class="text-center bg-gray-700 p-3 rounded-lg flex flex-col items-center">
                             <span class="text-sm text-gray-400">Inteligência</span>
-                            <input type="number" id="attr-int" class="attr-input" value="13">
-                            <span id="mod-int" class="font-semibold text-yellow-400 text-lg">+1</span>
+                            <input type="number" id="attr-int" class="attr-input w-24 h-16 text-4xl" value="13">
+                            <span id="mod-int" class="font-semibold text-yellow-400 text-lg mt-1">+1</span>
                         </div>
-                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                        <!-- Sabedoria --><div class="text-center bg-gray-700 p-3 rounded-lg flex flex-col items-center">
                             <span class="text-sm text-gray-400">Sabedoria</span>
-                             <input type="number" id="attr-wis" class="attr-input" value="15">
-                            <span id="mod-wis" class="font-semibold text-yellow-400 text-lg">+2</span>
+                             <input type="number" id="attr-wis" class="attr-input w-24 h-16 text-4xl" value="15">
+                            <span id="mod-wis" class="font-semibold text-yellow-400 text-lg mt-1">+2</span>
                         </div>
-                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                        <!-- Carisma --><div class="text-center bg-gray-700 p-3 rounded-lg flex flex-col items-center">
                             <span class="text-sm text-gray-400">Carisma</span>
-                             <input type="number" id="attr-cha" class="attr-input" value="20">
-                            <span id="mod-cha" class="font-semibold text-yellow-400 text-lg">+5</span>
+                             <input type="number" id="attr-cha" class="attr-input w-24 h-16 text-4xl" value="20">
+                            <span id="mod-cha" class="font-semibold text-yellow-400 text-lg mt-1">+5</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- SALVAGUARDAS E PERÍCIAS -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                <!-- SALVAGUARDAS E PERÍCIAS --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
                     <p class="text-sm text-gray-400 mb-2">Bônus de Proficiência: <span id="prof-bonus" class="font-bold text-lg text-yellow-300">+3</span></p>
                     <h3 class="font-title text-xl text-yellow-400 mb-2">Salvaguardas</h3>
                     <ul id="saving-throws-list" class="space-y-2"></ul>
@@ -166,35 +167,32 @@
                 </div>
             </div>
 
-            <!-- COLUNA CENTRAL: COMBATE E EQUIPAMENTO -->
-            <div class="space-y-8">
-                <!-- ESTATÍSTICAS DE COMBATE -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 grid grid-cols-3 gap-4 text-center">
+            <!-- COLUNA CENTRAL: COMBATE E EQUIPAMENTO --><div class="space-y-8">
+                <!-- ESTATÍSTICAS DE COMBATE --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 grid grid-cols-3 gap-4 text-center">
                     <div>
-                        <span class="font-title text-yellow-400 text-xl">Classe de Armadura</span>
-                        <input type="number" id="ac-total" class="attr-input text-5xl" value="23">
+                        <span class="font-title text-yellow-400 text-xl block">CA</span>
+                        <input type="number" id="ac-total" class="attr-input w-24 h-16 text-4xl" value="23">
                     </div>
                     <div>
-                        <span class="font-title text-yellow-400 text-xl">Pontos de Vida</span>
-                        <div class="flex items-center justify-center">
-                            <input type="number" id="hp-current" class="attr-input text-4xl w-24" value="69">
-                            <span class="text-3xl mx-1">/</span>
-                            <input type="number" id="hp-max" class="attr-input text-4xl w-24" value="69">
+                        <span class="font-title text-yellow-400 text-xl block">PV</span>
+                        <div class="flex items-center justify-center gap-1">
+                            <input type="number" id="hp-current" class="attr-input attr-input-compact" value="69">
+                            <span class="text-xl">/</span>
+                            <input type="number" id="hp-max" class="attr-input attr-input-compact" value="69">
                         </div>
                     </div>
                     <div>
-                        <span class="font-title text-yellow-400 text-xl">Iniciativa</span>
-                        <p id="initiative" class="text-5xl font-bold">+1</p>
+                        <span class="font-title text-yellow-400 text-xl block">Iniciativa</span>
+                        <p id="initiative" class="text-4xl font-bold text-yellow-400">+1</p>
                     </div>
                     <div class="col-span-3">
-                        <span class="font-title text-yellow-400 text-xl">Deslocamento</span>
-                        <p class="text-4xl font-bold">9m</p>
+                        <span class="font-title text-yellow-400 text-xl block">Deslocamento</span>
+                        <p class="text-4xl font-bold text-yellow-400">9m</p>
                     </div>
                 </div>
 
-                <!-- ATAQUES -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
-                    <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Ataques e Magias</h2>
+                <!-- ATAQUES --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                    <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Ataques</h2>
                     <div class="space-y-3">
                         <div class="bg-gray-700 p-3 rounded-lg">
                             <p class="font-bold">Espada Longa +1</p>
@@ -203,8 +201,7 @@
                     </div>
                 </div>
                 
-                <!-- EQUIPAMENTO -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                <!-- EQUIPAMENTO --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
                     <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Equipamento</h2>
                     <textarea id="equipment" rows="8" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200">Armadura de Placas Rara (+1)
 Escudo da Fé (+3 CA, mágico)
@@ -214,8 +211,7 @@ Pacote de Explorador
 Bolsa com moedas</textarea>
                 </div>
                 
-                <!-- CARACTERÍSTICAS E HABILIDADES -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                <!-- CARACTERÍSTICAS E HABILIDADES --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
                      <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Características</h2>
                     <textarea id="features" rows="10" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200">Sentido Divino: Usa uma ação para sentir celestiais, demônios ou mortos-vivos.
 Cura Pelas Mãos: Pode curar um total de 25 PV por dia.
@@ -225,12 +221,15 @@ Saúde Divina: Imune a doenças.
 Ataque Extra: Pode atacar duas vezes por ação.
 Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
                 </div>
+
+                <!-- TALENTOS --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                    <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Talentos</h2>
+                    <textarea id="feats" rows="5" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200"></textarea>
+                </div>
             </div>
 
-            <!-- COLUNA DIREITA: MAGIAS E PERSONALIDADE -->
-            <div class="space-y-8">
-                <!-- MAGIAS -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+            <!-- COLUNA DIREITA: MAGIAS E PERSONALIDADE --><div class="space-y-8">
+                <!-- MAGIAS --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
                     <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Magias de Paladino</h2>
                     <div class="grid grid-cols-2 gap-4 mb-4 text-center">
                         <div>
@@ -244,12 +243,12 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
                     </div>
                     
                     <div class="mt-4">
-                        <h3 class="font-semibold text-yellow-300 mb-2">Nível 1 (4 Espaços)</h3>
+                        <h3 class="font-semibold text-yellow-300 mb-2">Espaços de Magia (Nível 1)</h3>
                         <div id="spell-slots-1" class="flex gap-2"></div>
                     </div>
 
                     <div class="mt-4">
-                        <h3 class="font-semibold text-yellow-300 mb-2">Nível 2 (2 Espaços)</h3>
+                        <h3 class="font-semibold text-yellow-300 mb-2">Espaços de Magia (Nível 2)</h3>
                          <div id="spell-slots-2" class="flex gap-2"></div>
                     </div>
                      <div class="mt-6 space-y-4">
@@ -257,7 +256,7 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
                             <h3 class="font-semibold text-yellow-300 mb-2">Magias de Juramento</h3>
                             <details>
                                 <summary>Comando</summary>
-                                <p class="spell-description">Você profere uma ordem de uma palavra para uma criatura que possa te ouvir. O alvo deve fazer um teste de resistência de Sabedoria. Se falhar, ele segue o comando no próximo turno dele. Comandos úteis incluem "Largue", "Aproxime-se" ou "Fuja".</p>
+                                <p class="spell-description">Você proferre uma ordem de uma palavra para uma criatura que possa te ouvir. O alvo deve fazer um teste de resistência de Sabedoria. Se falhar, ele segue o comando no próximo turno dele. Comandos úteis incluem "Largue", "Aproxime-se" ou "Fuja".</p>
                             </details>
                             <details>
                                 <summary>Duelo Compelido</summary>
@@ -306,31 +305,10 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
                                 <p class="spell-description">Você toca uma arma não mágica, que se torna uma arma mágica com +1 no ataque e dano por até 1 hora, com concentração.</p>
                             </details>
                         </div>
-                        <div>
-                            <h3 class="font-semibold text-yellow-300 mb-2">Truques (Opcional)</h3>
-                             <p class="text-xs text-gray-400 mb-2">Obtidos via talento, habilidade racial, etc.</p>
-                            <details>
-                                <summary>Orientação</summary>
-                                <p class="spell-description">Você toca uma criatura. Uma vez, ela pode rolar um d4 e adicionar a um teste de habilidade à escolha.</p>
-                            </details>
-                             <details>
-                                <summary>Estabilizar</summary>
-                                <p class="spell-description">Você toca uma criatura com 0 pontos de vida e ela se torna estável, não precisando mais fazer testes contra a morte.</p>
-                            </details>
-                             <details>
-                                <summary>Luz</summary>
-                                <p class="spell-description">Você toca um objeto e faz com que ele emita luz brilhante num raio de 6 metros.</p>
-                            </details>
-                             <details>
-                                <summary>Chama Sagrada</summary>
-                                <p class="spell-description">Uma chama desce sobre uma criatura. Ela deve passar num teste de Destreza ou sofrerá dano radiante (2d8 no nível 5). O alvo não ganha benefício de cobertura.</p>
-                            </details>
-                        </div>
                     </div>
                 </div>
                 
-                <!-- CAMPOS EDITÁVEIS -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 space-y-4">
+                <!-- CAMPOS EDITÁVEIS --><div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 space-y-4">
                     <h2 class="font-title text-2xl text-yellow-400 mb-2 border-b-2 border-yellow-500 pb-2">Personalidade e História</h2>
                     <div>
                         <label for="personality-trait" class="block text-sm font-medium text-yellow-300">Traços de Personalidade</label>
@@ -351,6 +329,10 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
                      <div>
                         <label for="history" class="block text-sm font-medium text-yellow-300">História do Personagem</label>
                         <textarea id="history" rows="8" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200"></textarea>
+                    </div>
+                     <div>
+                        <label for="notes" class="block text-sm font-medium text-yellow-300">Anotações Gerais</label>
+                        <textarea id="notes" rows="8" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200"></textarea>
                     </div>
                 </div>
             </div>
@@ -420,7 +402,7 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
             const characterLevel = parseInt(document.getElementById('character-level').value) || 1;
 
             // Simple progression for demo
-            if (characterLevel >= 9) slotsByLevel[3] = 2;
+            // if (characterLevel >= 9) slotsByLevel[3] = 2; // Removido para simplificar
 
             for (const [level, count] of Object.entries(slotsByLevel)) {
                 const container = document.getElementById(`spell-slots-${level}`);
@@ -493,15 +475,18 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
             };
             
             // Campos de texto e números
-            const fieldsToSave = ['character-name', 'character-race', 'character-class', 'character-level', 'player-name', 'character-background', 'hp-current', 'hp-max', 'ac-total', 'equipment', 'features', 'personality-trait', 'ideals', 'bonds', 'flaws', 'history'];
+            const fieldsToSave = ['character-name', 'character-race', 'character-class', 'character-level', 'player-name', 'character-background', 'hp-current', 'hp-max', 'ac-total', 'equipment', 'features', 'feats', 'notes', 'personality-trait', 'ideals', 'bonds', 'flaws', 'history'];
             fieldsToSave.forEach(id => {
                 const el = document.getElementById(id);
-                data.textFields[id] = el.value !== undefined ? el.value : el.textContent;
+                if (el) { // Adicionado verificação para evitar erros se o elemento não existir
+                    data.textFields[id] = el.value !== undefined ? el.value : el.textContent;
+                }
             });
             
             // Atributos
             for (const attr of ['str', 'dex', 'con', 'int', 'wis', 'cha']) {
-                data.attributes[attr] = document.getElementById(`attr-${attr}`).value;
+                const el = document.getElementById(`attr-${attr}`);
+                if (el) data.attributes[attr] = el.value;
             }
             
             // Proficiências
@@ -597,5 +582,4 @@ Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
     </script>
 </body>
 </html>
-
 
