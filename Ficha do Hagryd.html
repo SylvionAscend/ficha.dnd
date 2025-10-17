@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Paladino - Juramento da Coroa (Interativa)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=MedievalSharp&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-title {
+            font-family: 'MedievalSharp', cursive;
+        }
+        [contenteditable]:focus {
+            outline: 2px solid #f6e05e;
+            background-color: #4a5568;
+        }
+        .attr-input {
+            width: 5rem;
+            background-color: #2d3748;
+            border: 1px solid #4a5568;
+            text-align: center;
+            font-size: 1.875rem;
+            font-weight: bold;
+            border-radius: 0.5rem;
+            -moz-appearance: textfield;
+        }
+        .attr-input::-webkit-outer-spin-button,
+        .attr-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .spell-slot {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #718096;
+            cursor: pointer;
+            display: inline-block;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s;
+        }
+        .spell-slot.used {
+            background-color: #f6e05e;
+            border-color: #f6e05e;
+        }
+        textarea::-webkit-scrollbar { width: 8px; }
+        textarea::-webkit-scrollbar-track { background: #2d3748; }
+        textarea::-webkit-scrollbar-thumb { background-color: #f6e05e; border-radius: 4px; border: 2px solid #2d3748; }
+
+        /* Estilos para descrições de magias */
+        details {
+            background-color: #4a5568;
+            border: 1px solid #718096;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        details:hover {
+            background-color: #2d3748;
+        }
+        summary {
+            font-weight: 600;
+            color: #f6e05e;
+            cursor: pointer;
+            padding: 0.75rem 1rem;
+            list-style: none; /* remove default arrow */
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary::before {
+            content: '▶';
+            margin-right: 0.75rem;
+            font-size: 0.8em;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        details[open] > summary::before {
+            transform: rotate(90deg);
+        }
+        .spell-description {
+            padding: 0 1rem 1rem 2.25rem;
+            font-size: 0.875rem;
+            color: #cbd5e0;
+            border-top: 1px solid #2d3748;
+            margin-top: 0.5rem;
+            padding-top: 0.75rem;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 p-4 sm:p-6 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- CABEÇALHO -->
+        <header class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h1 id="character-name" contenteditable="true" class="font-title text-4xl text-yellow-400 rounded px-2">Nome do Personagem</h1>
+                    <p class="text-xl text-gray-400">
+                        <span id="character-race" contenteditable="true" class="rounded px-2">Humano</span> 
+                        <span id="character-class" contenteditable="true" class="rounded px-2">Paladino (Juramento da Coroa)</span> | Nível 
+                        <input type="number" id="character-level" class="bg-gray-700 w-12 text-center rounded" value="5">
+                    </p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p><strong>Jogador:</strong> <span id="player-name" contenteditable="true" class="rounded px-2">Seu Nome</span></p>
+                    <p><strong>Antecedente:</strong> <span id="character-background" contenteditable="true" class="rounded px-2">Nobre</span></p>
+                </div>
+            </div>
+        </header>
+
+        <!-- GRID PRINCIPAL -->
+        <main class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- COLUNA ESQUERDA: ATRIBUTOS E PERÍCIAS -->
+            <div class="space-y-8">
+                <!-- ATRIBUTOS -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                    <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Atributos</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                            <span class="text-sm text-gray-400">Força</span>
+                            <input type="number" id="attr-str" class="attr-input" value="19">
+                            <span id="mod-str" class="font-semibold text-yellow-400 text-lg">+4</span>
+                        </div>
+                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                            <span class="text-sm text-gray-400">Destreza</span>
+                            <input type="number" id="attr-dex" class="attr-input" value="12">
+                            <span id="mod-dex" class="font-semibold text-yellow-400 text-lg">+1</span>
+                        </div>
+                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                            <span class="text-sm text-gray-400">Constituição</span>
+                             <input type="number" id="attr-con" class="attr-input" value="20">
+                            <span id="mod-con" class="font-semibold text-yellow-400 text-lg">+5</span>
+                        </div>
+                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                            <span class="text-sm text-gray-400">Inteligência</span>
+                            <input type="number" id="attr-int" class="attr-input" value="13">
+                            <span id="mod-int" class="font-semibold text-yellow-400 text-lg">+1</span>
+                        </div>
+                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                            <span class="text-sm text-gray-400">Sabedoria</span>
+                             <input type="number" id="attr-wis" class="attr-input" value="15">
+                            <span id="mod-wis" class="font-semibold text-yellow-400 text-lg">+2</span>
+                        </div>
+                        <div class="text-center bg-gray-700 p-4 rounded-lg">
+                            <span class="text-sm text-gray-400">Carisma</span>
+                             <input type="number" id="attr-cha" class="attr-input" value="20">
+                            <span id="mod-cha" class="font-semibold text-yellow-400 text-lg">+5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SALVAGUARDAS E PERÍCIAS -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                    <p class="text-sm text-gray-400 mb-2">Bônus de Proficiência: <span id="prof-bonus" class="font-bold text-lg text-yellow-300">+3</span></p>
+                    <h3 class="font-title text-xl text-yellow-400 mb-2">Salvaguardas</h3>
+                    <ul id="saving-throws-list" class="space-y-2"></ul>
+                    <h3 class="font-title text-xl text-yellow-400 my-4 pt-4 border-t border-gray-700">Perícias</h3>
+                    <ul id="skills-list" class="space-y-2 text-sm"></ul>
+                </div>
+            </div>
+
+            <!-- COLUNA CENTRAL: COMBATE E EQUIPAMENTO -->
+            <div class="space-y-8">
+                <!-- ESTATÍSTICAS DE COMBATE -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <span class="font-title text-yellow-400 text-xl">Classe de Armadura</span>
+                        <input type="number" id="ac-total" class="attr-input text-5xl" value="23">
+                    </div>
+                    <div>
+                        <span class="font-title text-yellow-400 text-xl">Pontos de Vida</span>
+                        <div class="flex items-center justify-center">
+                            <input type="number" id="hp-current" class="attr-input text-4xl w-24" value="69">
+                            <span class="text-3xl mx-1">/</span>
+                            <input type="number" id="hp-max" class="attr-input text-4xl w-24" value="69">
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-title text-yellow-400 text-xl">Iniciativa</span>
+                        <p id="initiative" class="text-5xl font-bold">+1</p>
+                    </div>
+                    <div class="col-span-3">
+                        <span class="font-title text-yellow-400 text-xl">Deslocamento</span>
+                        <p class="text-4xl font-bold">9m</p>
+                    </div>
+                </div>
+
+                <!-- ATAQUES -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                    <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Ataques e Magias</h2>
+                    <div class="space-y-3">
+                        <div class="bg-gray-700 p-3 rounded-lg">
+                            <p class="font-bold">Espada Longa +1</p>
+                            <p class="text-sm">Bônus de Ataque: <span id="attack-bonus" class="text-yellow-300 font-semibold">+8</span> | Dano: <span class="text-yellow-300 font-semibold">1d8 + <span id="damage-bonus">5</span></span> Cortante</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- EQUIPAMENTO -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                    <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Equipamento</h2>
+                    <textarea id="equipment" rows="8" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200">Armadura de Placas Rara (+1)
+Escudo da Fé (+3 CA, mágico)
+Espada Longa +1
+Símbolo Sagrado
+Pacote de Explorador
+Bolsa com moedas</textarea>
+                </div>
+                
+                <!-- CARACTERÍSTICAS E HABILIDADES -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                     <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Características</h2>
+                    <textarea id="features" rows="10" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200">Sentido Divino: Usa uma ação para sentir celestiais, demônios ou mortos-vivos.
+Cura Pelas Mãos: Pode curar um total de 25 PV por dia.
+Estilo de Luta (Defesa): +1 de CA enquanto estiver usando armadura.
+Destruição Divina: Gasta um espaço de magia para causar dano radiante extra.
+Saúde Divina: Imune a doenças.
+Ataque Extra: Pode atacar duas vezes por ação.
+Canalizar Divindade: Desafio do Campeão, Virar a Maré.</textarea>
+                </div>
+            </div>
+
+            <!-- COLUNA DIREITA: MAGIAS E PERSONALIDADE -->
+            <div class="space-y-8">
+                <!-- MAGIAS -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                    <h2 class="font-title text-2xl text-yellow-400 mb-4 border-b-2 border-yellow-500 pb-2">Magias de Paladino</h2>
+                    <div class="grid grid-cols-2 gap-4 mb-4 text-center">
+                        <div>
+                            <span class="text-sm text-gray-400">CD da Magia</span>
+                            <p id="spell-dc" class="text-3xl font-bold">16</p>
+                        </div>
+                        <div>
+                            <span class="text-sm text-gray-400">Ataque de Magia</span>
+                            <p id="spell-attack" class="text-3xl font-bold">+8</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-yellow-300 mb-2">Nível 1 (4 Espaços)</h3>
+                        <div id="spell-slots-1" class="flex gap-2"></div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-yellow-300 mb-2">Nível 2 (2 Espaços)</h3>
+                         <div id="spell-slots-2" class="flex gap-2"></div>
+                    </div>
+                     <div class="mt-6 space-y-4">
+                        <div>
+                            <h3 class="font-semibold text-yellow-300 mb-2">Magias de Juramento</h3>
+                            <details>
+                                <summary>Comando</summary>
+                                <p class="spell-description">Você profere uma ordem de uma palavra para uma criatura que possa te ouvir. O alvo deve fazer um teste de resistência de Sabedoria. Se falhar, ele segue o comando no próximo turno dele. Comandos úteis incluem "Largue", "Aproxime-se" ou "Fuja".</p>
+                            </details>
+                            <details>
+                                <summary>Duelo Compelido</summary>
+                                <p class="spell-description">Você desafia uma criatura para um duelo. Se ela falhar num teste de Sabedoria, tem desvantagem em atacar alvos que não sejam você e precisa fazer outro teste para se afastar mais de 9 metros. A magia termina se você atacar outra criatura.</p>
+                            </details>
+                             <details>
+                                <summary>Vínculo Protetor</summary>
+                                <p class="spell-description">Você cria um elo místico com um aliado. Enquanto ele estiver a até 18 metros, ganha +1 na CA e em testes de resistência, e resistência a todo dano. No entanto, sempre que ele sofrer dano, você sofre a mesma quantidade.</p>
+                            </details>
+                            <details>
+                                <summary>Zona da Verdade</summary>
+                                <p class="spell-description">Você cria uma área de 4,5m de raio. Criaturas na zona devem passar num teste de Carisma ou não poderão falar uma mentira deliberada. Você sabe quem passou e quem falhou no teste.</p>
+                            </details>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-yellow-300 mb-2">Magias Preparadas - Nível 1</h3>
+                             <details>
+                                <summary>Bênção</summary>
+                                <p class="spell-description">Você abençoa até três criaturas. Alvos podem rolar um d4 e adicionar a jogadas de ataque ou testes de resistência. Dura até 1 minuto com concentração.</p>
+                            </details>
+                            <details>
+                                <summary>Curar Ferimentos</summary>
+                                <p class="spell-description">Você toca uma criatura e ela recupera 1d8 + seu modificador de Carisma em pontos de vida. Pode ser conjurada em níveis mais altos para curar 1d8 adicional por nível de magia.</p>
+                            </details>
+                             <details>
+                                <summary>Proteção contra o Bem e o Mal</summary>
+                                <p class="spell-description">Protege uma criatura contra aberrações, celestiais, corruptores, elementais, fadas e mortos-vivos. O alvo não pode ser amedrontado, encantado ou possuído por eles, que têm desvantagem para atacá-lo.</p>
+                            </details>
+                            <details>
+                                <summary>Escudo da Fé</summary>
+                                <p class="spell-description">Uma magia de bônus que concede +2 na CA a uma criatura por até 10 minutos, com concentração.</p>
+                            </details>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-yellow-300 mb-2">Magias Preparadas - Nível 2</h3>
+                            <details>
+                                <summary>Ajuda</summary>
+                                <p class="spell-description">Você concede a até três criaturas um aumento de 5 nos seus pontos de vida máximos e atuais por 8 horas. Não requer concentração.</p>
+                            </details>
+                            <details>
+                                <summary>Restauração Menor</summary>
+                                <p class="spell-description">Você toca uma criatura e pode acabar com uma doença ou uma condição que a aflige (cego, surdo, paralisado ou envenenado).</p>
+                            </details>
+                             <details>
+                                <summary>Arma Mágica</summary>
+                                <p class="spell-description">Você toca uma arma não mágica, que se torna uma arma mágica com +1 no ataque e dano por até 1 hora, com concentração.</p>
+                            </details>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-yellow-300 mb-2">Truques (Opcional)</h3>
+                             <p class="text-xs text-gray-400 mb-2">Obtidos via talento, habilidade racial, etc.</p>
+                            <details>
+                                <summary>Orientação</summary>
+                                <p class="spell-description">Você toca uma criatura. Uma vez, ela pode rolar um d4 e adicionar a um teste de habilidade à escolha.</p>
+                            </details>
+                             <details>
+                                <summary>Estabilizar</summary>
+                                <p class="spell-description">Você toca uma criatura com 0 pontos de vida e ela se torna estável, não precisando mais fazer testes contra a morte.</p>
+                            </details>
+                             <details>
+                                <summary>Luz</summary>
+                                <p class="spell-description">Você toca um objeto e faz com que ele emita luz brilhante num raio de 6 metros.</p>
+                            </details>
+                             <details>
+                                <summary>Chama Sagrada</summary>
+                                <p class="spell-description">Uma chama desce sobre uma criatura. Ela deve passar num teste de Destreza ou sofrerá dano radiante (2d8 no nível 5). O alvo não ganha benefício de cobertura.</p>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CAMPOS EDITÁVEIS -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 space-y-4">
+                    <h2 class="font-title text-2xl text-yellow-400 mb-2 border-b-2 border-yellow-500 pb-2">Personalidade e História</h2>
+                    <div>
+                        <label for="personality-trait" class="block text-sm font-medium text-yellow-300">Traços de Personalidade</label>
+                        <textarea id="personality-trait" rows="3" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200"></textarea>
+                    </div>
+                    <div>
+                        <label for="ideals" class="block text-sm font-medium text-yellow-300">Ideais</label>
+                        <textarea id="ideals" rows="3" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200"></textarea>
+                    </div>
+                    <div>
+                        <label for="bonds" class="block text-sm font-medium text-yellow-300">Vínculos</label>
+                        <textarea id="bonds" rows="3" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200"></textarea>
+                    </div>
+                    <div>
+                        <label for="flaws" class="block text-sm font-medium text-yellow-300">Fraquezas</label>
+                        <textarea id="flaws" rows="3" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200"></textarea>
+                    </div>
+                     <div>
+                        <label for="history" class="block text-sm font-medium text-yellow-300">História do Personagem</label>
+                        <textarea id="history" rows="8" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm p-2 text-gray-200"></textarea>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const ALL_SKILLS = {
+            'Acrobacia': 'dex', 'Arcanismo': 'int', 'Atletismo': 'str', 'Atuação': 'cha',
+            'Enganação': 'cha', 'Furtividade': 'dex', 'História': 'int', 'Intimidação': 'cha',
+            'Intuição': 'wis', 'Investigação': 'int', 'Lidar com Animais': 'wis',
+            'Medicina': 'wis', 'Natureza': 'int', 'Percepção': 'wis', 'Persuasão': 'cha',
+            'Prestidigitação': 'dex', 'Religião': 'int', 'Sobrevivência': 'wis'
+        };
+        const ALL_SAVES = { 'Força': 'str', 'Destreza': 'dex', 'Constituição': 'con', 'Inteligência': 'int', 'Sabedoria': 'wis', 'Carisma': 'cha' };
+        
+        const initialProfs = {
+            saves: ['wis', 'cha'],
+            skills: ['Atletismo', 'Persuasão']
+        };
+
+        function getModifier(score) {
+            return Math.floor((score - 10) / 2);
+        }
+        
+        function formatModifier(mod) {
+            return mod >= 0 ? `+${mod}` : mod;
+        }
+
+        function createProficiencyLists() {
+            const savesList = document.getElementById('saving-throws-list');
+            const skillsList = document.getElementById('skills-list');
+            
+            savesList.innerHTML = ''; // Limpa antes de criar
+            for (const [name, attr] of Object.entries(ALL_SAVES)) {
+                const li = document.createElement('li');
+                li.className = 'flex items-center justify-between';
+                li.innerHTML = `
+                    <div class="flex items-center">
+                        <input type="checkbox" id="prof-save-${attr}" data-type="save" data-key="${attr}" class="mr-2 h-4 w-4 rounded border-gray-300 text-yellow-500 focus:ring-yellow-500">
+                        <span>${name}</span>
+                    </div>
+                    <span id="save-${attr}" class="font-bold">+0</span>
+                `;
+                savesList.appendChild(li);
+            }
+            
+            skillsList.innerHTML = ''; // Limpa antes de criar
+            for (const [name, attr] of Object.entries(ALL_SKILLS)) {
+                const li = document.createElement('li');
+                li.className = 'flex items-center justify-between';
+                li.innerHTML = `
+                     <div class="flex items-center">
+                        <input type="checkbox" id="prof-skill-${name}" data-type="skill" data-key="${name}" class="mr-2 h-4 w-4 rounded border-gray-300 text-yellow-500 focus:ring-yellow-500">
+                        <span>${name} (${attr.toUpperCase()})</span>
+                    </div>
+                    <span id="skill-${name}" class="font-bold">+0</span>
+                `;
+                skillsList.appendChild(li);
+            }
+        }
+        
+        function createSpellSlots() {
+            // Nível 5 Paladino
+            const slotsByLevel = { 1: 4, 2: 2 }; 
+            const characterLevel = parseInt(document.getElementById('character-level').value) || 1;
+
+            // Simple progression for demo
+            if (characterLevel >= 9) slotsByLevel[3] = 2;
+
+            for (const [level, count] of Object.entries(slotsByLevel)) {
+                const container = document.getElementById(`spell-slots-${level}`);
+                if (container) {
+                    container.innerHTML = '';
+                    for (let i = 0; i < count; i++) {
+                        const slot = document.createElement('div');
+                        slot.className = 'spell-slot';
+                        slot.dataset.level = level;
+                        slot.dataset.index = i;
+                        container.appendChild(slot);
+                    }
+                }
+            }
+        }
+
+        function updateSheet() {
+            const level = parseInt(document.getElementById('character-level').value) || 1;
+            const profBonus = Math.floor((level - 1) / 4) + 2;
+            document.getElementById('prof-bonus').textContent = formatModifier(profBonus);
+
+            const mods = {};
+            for (const attr of ['str', 'dex', 'con', 'int', 'wis', 'cha']) {
+                const score = parseInt(document.getElementById(`attr-${attr}`).value) || 10;
+                const mod = getModifier(score);
+                mods[attr] = mod;
+                document.getElementById(`mod-${attr}`).textContent = formatModifier(mod);
+            }
+            
+            // Salvaguardas
+            for (const [name, attr] of Object.entries(ALL_SAVES)) {
+                const isProf = document.getElementById(`prof-save-${attr}`).checked;
+                const total = mods[attr] + (isProf ? profBonus : 0);
+                const el = document.getElementById(`save-${attr}`);
+                el.textContent = formatModifier(total);
+                el.parentElement.classList.toggle('text-yellow-300', isProf);
+            }
+            
+            // Perícias
+            for (const [name, attr] of Object.entries(ALL_SKILLS)) {
+                const isProf = document.getElementById(`prof-skill-${name}`).checked;
+                const total = mods[attr] + (isProf ? profBonus : 0);
+                const el = document.getElementById(`skill-${name}`);
+                el.textContent = formatModifier(total);
+                 el.parentElement.parentElement.classList.toggle('text-yellow-300', isProf);
+            }
+            
+            // Combate
+            document.getElementById('initiative').textContent = formatModifier(mods.dex);
+            
+            // Ataque
+            const attackMod = mods.str + profBonus + 1; // +1 da arma
+            const damageMod = mods.str + 1; // +1 da arma
+            document.getElementById('attack-bonus').textContent = formatModifier(attackMod);
+            document.getElementById('damage-bonus').textContent = damageMod;
+
+            // Magias
+            document.getElementById('spell-dc').textContent = 8 + profBonus + mods.cha;
+            document.getElementById('spell-attack').textContent = formatModifier(profBonus + mods.cha);
+            
+            saveData();
+        }
+
+        function saveData() {
+            const data = {
+                textFields: {},
+                attributes: {},
+                proficiencies: { saves: [], skills: [] },
+                spellSlots: {}
+            };
+            
+            // Campos de texto e números
+            const fieldsToSave = ['character-name', 'character-race', 'character-class', 'character-level', 'player-name', 'character-background', 'hp-current', 'hp-max', 'ac-total', 'equipment', 'features', 'personality-trait', 'ideals', 'bonds', 'flaws', 'history'];
+            fieldsToSave.forEach(id => {
+                const el = document.getElementById(id);
+                data.textFields[id] = el.value !== undefined ? el.value : el.textContent;
+            });
+            
+            // Atributos
+            for (const attr of ['str', 'dex', 'con', 'int', 'wis', 'cha']) {
+                data.attributes[attr] = document.getElementById(`attr-${attr}`).value;
+            }
+            
+            // Proficiências
+            document.querySelectorAll('input[type="checkbox"][data-type="save"]:checked').forEach(el => data.proficiencies.saves.push(el.dataset.key));
+            document.querySelectorAll('input[type="checkbox"][data-type="skill"]:checked').forEach(el => data.proficiencies.skills.push(el.dataset.key));
+
+            // Slots de Magia
+            document.querySelectorAll('.spell-slot.used').forEach(el => {
+                const level = el.dataset.level;
+                if (!data.spellSlots[level]) data.spellSlots[level] = [];
+                data.spellSlots[level].push(el.dataset.index);
+            });
+            
+            localStorage.setItem('paladinSheetData', JSON.stringify(data));
+        }
+
+        function loadData() {
+            const savedData = JSON.parse(localStorage.getItem('paladinSheetData'));
+            if (!savedData) {
+                // Configuração inicial se não houver dados salvos
+                initialProfs.saves.forEach(s => {
+                    const el = document.getElementById(`prof-save-${s}`);
+                    if(el) el.checked = true;
+                });
+                initialProfs.skills.forEach(s => {
+                     const el = document.getElementById(`prof-skill-${s}`);
+                    if(el) el.checked = true;
+                });
+                return;
+            };
+
+            // Campos de texto e números
+            for(const [id, value] of Object.entries(savedData.textFields || {})) {
+                 const el = document.getElementById(id);
+                 if (el) {
+                    if (el.value !== undefined) el.value = value;
+                    else el.textContent = value;
+                 }
+            }
+            
+            // Atributos
+            for(const [attr, value] of Object.entries(savedData.attributes || {})) {
+                const el = document.getElementById(`attr-${attr}`);
+                if (el) el.value = value;
+            }
+
+            // Proficiências
+            document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false); // Reset first
+            (savedData.proficiencies?.saves || []).forEach(s => {
+                const el = document.getElementById(`prof-save-${s}`);
+                if(el) el.checked = true;
+            });
+            (savedData.proficiencies?.skills || []).forEach(s => {
+                const el = document.getElementById(`prof-skill-${s}`);
+                if(el) el.checked = true;
+            });
+
+             // Slots de Magia
+            for (const [level, indices] of Object.entries(savedData.spellSlots || {})) {
+                indices.forEach(index => {
+                    const el = document.querySelector(`.spell-slot[data-level="${level}"][data-index="${index}"]`);
+                    if (el) el.classList.add('used');
+                });
+            }
+        }
+
+        // --- INICIALIZAÇÃO ---
+        createProficiencyLists();
+        createSpellSlots();
+        loadData();
+        updateSheet();
+
+        // --- EVENT LISTENERS ---
+        document.body.addEventListener('input', e => {
+            if (e.target.matches('input, textarea, [contenteditable]')) {
+                updateSheet();
+            }
+        });
+        document.body.addEventListener('change', e => {
+             if (e.target.matches('input[type="checkbox"]')) {
+                updateSheet();
+            }
+        });
+
+        document.body.addEventListener('click', e => {
+            if (e.target.matches('.spell-slot')) {
+                e.target.classList.toggle('used');
+                saveData();
+            }
+        });
+
+    });
+    </script>
+</body>
+</html>
+
